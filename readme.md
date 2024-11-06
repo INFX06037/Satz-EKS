@@ -13,8 +13,13 @@ STEPS:
 - choco install awscli --force
 - aws configure and enter the keys <<(Note: the access keys and secret keys must have full permission)
 
+**Install GIT**
+- choco install git
+- git clone https://github.com/INFX06037/Satz-EKS
+*This will download all the yaml files from git*
+
 **Create EKS Cluster**
-- eksctl create cluster -n “test-cluster" -r "us-east-1" --version "1.30" --nodegroup-name “demo-nodegrp" -t "t3.micro" -N 2
+- eksctl create cluster -n “digital-cluster" -r "ap-south-1" --version "1.30" --nodegroup-name “digital-nodegrp" -t "t3.micro" -N 2
 
 Note: It takes max 15-30 mins to create a cluster
 
@@ -107,8 +112,9 @@ LOGS & EVENTS
 -------------------
 - kubectl logs nginx-deployment-84b5985966-m6bcn
 - kubectl describe pod nginx-deployment-84b5985966-m6bcn
-**How to handle memory issue in pod**f
-1. Increase the memory limit of the pod
+- 
+**How to handle memory issue in pod**  
+1. Increase the memory limit of the pod, by editing the podwithns.yaml
 2. If no memory available, change the instance type of the nodes  
 - kubectl get nodes
 1. create a secondary nodegroup with t3 medium and delete the default node group
