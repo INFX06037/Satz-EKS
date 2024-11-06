@@ -1,23 +1,27 @@
 
 STEPS: 
 ----------------
-Install Kubectl:
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.24.11/2023-03-17/bin/linux/amd64/kubectl
-chmod +x ./kubectl
-sudo cp ./kubectl /usr/local/bin
-export PATH=/usr/local/bin:$PATH
+Creating Control Plane using EKSCTL:
 
+Install choco manager in powershell
+Run : choco install eksctl <<(Most Preferred way in organizations)
 
-Install AWScli:
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
+Run : choco install kubernetes-cli
+Run : eksctl version
+Run : Kubectl version
+Install AWS-CLI
+Run : choco install awscli --force
+Run : aws configure and enter the keys
+Note: the access keys and secret keys must have full permission
 
-command to set aws context:
-aws eks update-kubeconfig --name EKS_CLUSTER_NAME --region us-west-2
+Create EKS Cluster
+Run : eksctl create cluster -n “test-cluster" -r "us-east-1" --version "1.28" --nodegroup-name
+“demo-nodegrp" -t "t3.micro" -N 2
+
+Note: It takes max 15-30 mins to create a cluster
 
 clone the AWS repo
-git clone
+git clone https://github.com/INFX06037/Satz-EKS
 
 Create Nepaltech Namespace
 kubectl create ns nepaltech
@@ -26,11 +30,43 @@ set default namespace to nepaltech
 kubectl config set-context --current --namespace nepaltech
 
 ------------------
-MONGO
+POD
 -------------------
-MONGO Database Setup
-To create Mongo statefulset with Persistent volumes, run the command in manifests folder:
-kubectl apply -f mongo-statefulset.yaml
+kubectl get pods
+To create pod:
+kubectl apply -f pod.yaml
+kubectl get pods
+kubectl delete -f pod.yaml
+
+------------------
+NODES
+-------------------
+kubectl get nodes
+
+------------------
+NAMESPACE
+-------------------
+kubectl get ns
+kubectl apply -f .\namespace.yaml
+kubectl get ns
+//working with pod in digital namespace//
+kubectl get pods
+kubectl apply -f .\podwithns.yaml
+kubectl get pods -n digital
+kubectl exec -it nginx-pod-2 -n digital -- /bin/bash
+apt-get update -y
+apt install vim -y
+cd /usr/share/nginx/html
+vi index.html
+service nginx status
+set default namespace to digital:
+kubectl config set-context --current --namespace digital
+exit
+
+------------------
+NAMESPACE
+-------------------
+
 
 Mongo Service
 kubectl apply -f mongo-service.yaml
