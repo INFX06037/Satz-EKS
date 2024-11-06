@@ -1,67 +1,60 @@
 
 STEPS: 
 ----------------
-Creating Control Plane using EKSCTL:
+**Creating Control Plane using EKSCTL:**
 
-Install choco manager in powershell
-Run : choco install eksctl <<(Most Preferred way in organizations)
+**Install choco manager in powershell**
+- choco install eksctl <<(Most Preferred way in organizations)
+- choco install kubernetes-cli
+- eksctl version
+- Kubectl version
+  
+**Install AWS-CLI**
+- choco install awscli --force
+- aws configure and enter the keys <<(Note: the access keys and secret keys must have full permission)
 
-Run : choco install kubernetes-cli
-Run : eksctl version
-Run : Kubectl version
-Install AWS-CLI
-Run : choco install awscli --force
-Run : aws configure and enter the keys
-Note: the access keys and secret keys must have full permission
-
-Create EKS Cluster
-Run : eksctl create cluster -n “test-cluster" -r "us-east-1" --version "1.28" --nodegroup-name
-“demo-nodegrp" -t "t3.micro" -N 2
+**Create EKS Cluster**
+- eksctl create cluster -n “test-cluster" -r "us-east-1" --version "1.28" --nodegroup-name “demo-nodegrp" -t "t3.micro" -N 2
 
 Note: It takes max 15-30 mins to create a cluster
 
-clone the AWS repo
-git clone https://github.com/INFX06037/Satz-EKS
+**Clone the AWS repo**  
+- git clone https://github.com/INFX06037/Satz-EKS
 
-Create Nepaltech Namespace
-kubectl create ns nepaltech
-
-set default namespace to nepaltech
-kubectl config set-context --current --namespace nepaltech
 
 ------------------
 POD
 -------------------
-kubectl get pods
-To create pod:
-kubectl apply -f pod.yaml
-kubectl get pods
-kubectl delete -f pod.yaml
+- kubectl get pods  
+**To create pod:**  
+- kubectl apply -f pod.yaml
+- kubectl get pods
+- kubectl delete -f pod.yaml
 
 ------------------
 NODES
 -------------------
-kubectl get nodes
+- kubectl get nodes
 
 ------------------
 NAMESPACE
 -------------------
-kubectl get ns
-kubectl apply -f .\namespace.yaml
-kubectl get ns
-//working with pod in digital namespace//
-kubectl get pods
-kubectl apply -f .\podwithns.yaml
-kubectl get pods -n digital
-kubectl exec -it nginx-pod-2 -n digital -- /bin/bash
-apt-get update -y
-apt install vim -y
-cd /usr/share/nginx/html
-vi index.html
-service nginx status
-set default namespace to digital:
-kubectl config set-context --current --namespace digital
-exit
+- kubectl get ns
+- kubectl apply -f .\namespace.yaml
+- kubectl get ns  
+*Lets work with pod in digital namespace//*  
+- kubectl get pods
+- kubectl apply -f .\podwithns.yaml
+- kubectl get pods -n digital
+- kubectl exec -it nginx-pod-2 -n digital -- /bin/bash
+- apt-get update -y
+- apt install vim -y
+- cd /usr/share/nginx/html
+- vi index.html
+- service nginx status  
+*set default namespace to digital:*  
+- kubectl config set-context --current --namespace digital
+- exit
 
 ------------------
 NAMESPACE
