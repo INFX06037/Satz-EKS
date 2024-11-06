@@ -1,9 +1,13 @@
 
 STEPS: 
 ----------------
-**Creating Control Plane using EKSCTL:**
+### Creating Kubernetes Cluster using EKSCTL:
+Open powershell as administrator, run the following cmds  
 
 **Install choco manager in powershell**
+- Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+**Install eksctl & kubectl in powershell**
 - choco install eksctl <<(Most Preferred way in organizations)
 - choco install kubernetes-cli
 - eksctl version
@@ -11,20 +15,18 @@ STEPS:
   
 **Install AWS-CLI**
 - choco install awscli --force
-- aws configure and enter the keys <<(Note: the access keys and secret keys must have full permission)
+- aws configure  
+  Enter the access keys <<(Note: the access keys and secret keys must have full permission)
 
 **Install GIT**
 - choco install git
-- git clone https://github.com/INFX06037/Satz-EKS
-*This will download all the yaml files from git*
+- git clone https://github.com/INFX06037/Satz-EKS  
+ *This will download all the yaml files from git*
 
 **Create EKS Cluster**
 - eksctl create cluster -n “digital-cluster" -r "ap-south-1" --version "1.30" --nodegroup-name “digital-nodegrp" -t "t3.micro" -N 2
 
 Note: It takes max 15-30 mins to create a cluster
-
-**Clone the AWS repo**  
-- git clone https://github.com/INFX06037/Satz-EKS
 
 
 ------------------
@@ -112,7 +114,7 @@ LOGS & EVENTS
 -------------------
 - kubectl logs nginx-deployment-84b5985966-m6bcn
 - kubectl describe pod nginx-deployment-84b5985966-m6bcn
-- 
+
 **How to handle memory issue in pod**  
 1. Increase the memory limit of the pod, by editing the podwithns.yaml
 2. If no memory available, change the instance type of the nodes  
