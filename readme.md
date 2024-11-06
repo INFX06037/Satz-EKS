@@ -14,7 +14,7 @@ STEPS:
 - aws configure and enter the keys <<(Note: the access keys and secret keys must have full permission)
 
 **Create EKS Cluster**
-- eksctl create cluster -n “test-cluster" -r "us-east-1" --version "1.28" --nodegroup-name “demo-nodegrp" -t "t3.micro" -N 2
+- eksctl create cluster -n “test-cluster" -r "us-east-1" --version "1.30" --nodegroup-name “demo-nodegrp" -t "t3.micro" -N 2
 
 Note: It takes max 15-30 mins to create a cluster
 
@@ -58,6 +58,7 @@ NAMESPACE
 ------------------
 REPLICASET
 -------------------
+**It is used to autoscale the pods**  
 - kubectl apply -f replicaset.yaml
 - kubectl get replicasets -n digital (or) kubectl get rs
 - kubectl get replicasets --all-namespaces
@@ -81,16 +82,25 @@ DEPLOYMENTS
 - kubectl rollout status deployment/nginx-deployment
   *What if, deployment got failed due to application issue*
 - kubectl rollout undo deployment/nginx-deployment
-
+- kubectl delete deployment nginx-deployment -n digital
 
 
 ------------------
 SERVICE
 -------------------
+**It is used to expose the pod with the public internet**  
+**3 types of service are availabe in K8S**
+1. Cluster IP    =  exposes with in the cluster
+2. Nodeport      =  exposes with in your subnet (vpc network)
+3. Loadbalancer  =  exposes to the outside world
+   
+- kubectl get svc
+- kubectl apply -f .\nodeport-service.yaml
+- kubectl get svc
+- kubectl apply -f .\loadbalancer-service.yaml
+- kubectl get svc
+*Now check the loadbalancer DNS name in browser to see the output*
 
-------------------
-REPLICASET
--------------------
 
 ------------------
 LOGS & EVENTS
