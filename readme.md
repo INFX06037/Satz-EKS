@@ -124,4 +124,9 @@ LOGS & EVENTS
 3. All the pods will be running in the seconday node group successfully
 - kubectl get pods
 
----
+------------------
+DESTROY
+-------------------
+- kubectl delete all --all -n digital
+- eksctl delete cluster -n “digital-cluster"
+ ---
