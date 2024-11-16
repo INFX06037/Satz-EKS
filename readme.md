@@ -63,7 +63,7 @@ NAMESPACE
 - exit
 
 ------------------
-SECRETS
+CONFIGMAP
 -------------------
 **It is used to store non-confidential configuration data in key-value pairs.** 
 - kubectl apply -f configmap.yaml
