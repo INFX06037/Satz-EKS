@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-app-ingress
+  namespace: digital
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: sathish.com  # Change to your desired hostname
+    http:
+      paths:
+      - path: /app-1
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service  # Replace with your LoadBalancer service name
+            port:
+              number: 80  # Change if your service uses a different port
