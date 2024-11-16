@@ -24,7 +24,7 @@ Open powershell as administrator, run the following cmds
  *This will download all the yaml files from git*
 
 **Create EKS Cluster**
-- eksctl create cluster -n “digital-cluster" -r "ap-south-1" --version "1.30" --nodegroup-name “digital-nodegrp" -t "t3.micro" -N 2
+- eksctl create cluster -n “digital-cluster" -r "ap-south-1" --version "1.28" --nodegroup-name “digital-nodegrp" -t "t3.micro" -N 2
 
 Note: It takes max 15-30 mins to create a cluster
 
@@ -61,6 +61,34 @@ NAMESPACE
  *set default namespace to digital*  
 - kubectl config set-context --current --namespace digital
 - exit
+
+------------------
+CONFIGMAP
+-------------------
+**It is used to store non-confidential configuration data in key-value pairs.** 
+- kubectl apply -f configmap.yaml
+- kubectl get configmap
+- kubectl describe configmap app-config
+- kubectl apply -f configmap_pod.yaml
+- kubectl exec -it nginx-cfmap-pod -n digital -- /bin/bash
+- exit
+- printenv | grep DATABASE_URL
+- kubectl delete -f configmap.yaml
+- kubectl delete -f configmap_pod.yaml  
+
+------------------
+SECRETS
+-------------------
+**It is used to to manage sensitive information, such as passwords, OAuth tokens, keys, and other confidential datas. By storing sensitive data as a Secret, you can avoid hardcoding it in your application code or configuration files.** 
+- kubectl apply -f secret.yaml
+- kubectl get secret
+- kubectl describe secret
+- kubectl apply -f secret_pod.yaml
+- kubectl exec -it secret-pod -n digital -- /bin/bash
+- printenv | grep DATABASE_PASSWORD
+- exit
+- kubectl delete -f secret.yaml
+- kubectl delete -f secret_pod.yaml
 
 ------------------
 REPLICASET
@@ -110,10 +138,24 @@ SERVICE
 
 
 ------------------
+INGRESS (Theory)
+-------------------
+*Note: Only theory, because you need to purchase domain names and configure route 53*  
+**It is used to route the incommig loadbalancer traffic between the two or more applications using path based routing**   
+**Eg: **   
+    **1. my-app.example.com/api routes to Service A**  
+    **2. my-app.example.com/web routes to Service B.**  
+- kubectl apply -f .\ingress.yaml
+- kubectl get ingress
+- kubectl describe ingress my-app-ingress
+- kubectl delete -f .\ingress.yaml
+
+------------------
 LOGS & EVENTS
 -------------------
+- kubectl get pods
 - kubectl logs nginx-deployment-84b5985966-m6bcn
-- kubectl describe pod nginx-deployment-84b5985966-m6bcn
+- kubectl describe pod nginx-deployment-84b5985966-m6bcn  
 
 **How to handle memory issue in pod**  
 1. Increase the memory limit of the pod, by editing the podwithns.yaml
@@ -124,4 +166,23 @@ LOGS & EVENTS
 3. All the pods will be running in the seconday node group successfully
 - kubectl get pods
 
+
+------------------
+EKS CLUSTER UPDATE (*Optional)
+-------------------
+- eksctl get clusters
+- aws eks describe-cluster --name digital-cluster --query "cluster.version"  
+- eksctl upgrade cluster -n "digital-cluster" -r "ap-south-1" --version "1.29"
+
+   Note: It takes max 10 mins to update a cluster version
+
+------------------
+DESTROY
+-------------------
+- kubectl delete all --all -n digital
+- eksctl delete cluster -n “digital-cluster"
+
+  Note: It takes max 15 mins to create a cluster
 ---
+
+Thank you!!!

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: digital
+data:
+  DATABASE_URL: "postgres://user:password@hostname:5432/dbname"
+  LOG_LEVEL: "debug"
+  API_KEY: "your-api-key-here"
