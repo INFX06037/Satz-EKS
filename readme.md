@@ -62,6 +62,11 @@ NAMESPACE
 - kubectl config set-context --current --namespace digital
 - exit
 
+------------------
+SECRETS
+-------------------
+**It is used to store non-confidential configuration data in key-value pairs.** 
+- kubectl apply -f configmap.yaml
 - kubectl get configmap
 - kubectl describe configmap app-config
 - kubectl apply -f configmap_pod.yaml
@@ -135,23 +140,22 @@ SERVICE
 ------------------
 INGRESS (Theory)
 -------------------
-*Note: No practicals only theory, because you need to purchase domain names and configure route 53*
-**It is used to route the incommig loadbalancer traffic between the two or more applications using path based routing** 
-**Eg: ** 
-    **1. my-app.example.com/api routes to Service A**
-    **2. my-app.example.com/web routes to Service B.**
+*Note: Only theory, because you need to purchase domain names and configure route 53*  
+**It is used to route the incommig loadbalancer traffic between the two or more applications using path based routing**   
+**Eg: **   
+    **1. my-app.example.com/api routes to Service A**  
+    **2. my-app.example.com/web routes to Service B.**  
 - kubectl apply -f .\ingress.yaml
 - kubectl get ingress
 - kubectl describe ingress my-app-ingress
 - kubectl delete -f .\ingress.yaml
-
 
 ------------------
 LOGS & EVENTS
 -------------------
 - kubectl get pods
 - kubectl logs nginx-deployment-84b5985966-m6bcn
-- kubectl describe pod nginx-deployment-84b5985966-m6bcn
+- kubectl describe pod nginx-deployment-84b5985966-m6bcn  
 
 **How to handle memory issue in pod**  
 1. Increase the memory limit of the pod, by editing the podwithns.yaml
@@ -162,9 +166,23 @@ LOGS & EVENTS
 3. All the pods will be running in the seconday node group successfully
 - kubectl get pods
 
+
+------------------
+EKS CLUSTER UPDATE (*Optional)
+-------------------
+- eksctl get clusters
+- aws eks describe-cluster --name digital-cluster --query "cluster.version"  
+- eksctl upgrade cluster -n "digital-cluster" -r "ap-south-1" --version "1.29"
+
+   Note: It takes max 10 mins to update a cluster version
+
 ------------------
 DESTROY
 -------------------
 - kubectl delete all --all -n digital
 - eksctl delete cluster -n “digital-cluster"
- ---
+
+  Note: It takes max 15 mins to create a cluster
+---
+
+Thank you!!!
