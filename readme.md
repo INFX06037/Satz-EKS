@@ -15,16 +15,23 @@ Open powershell as administrator, run the following cmds
   
 **Install AWS-CLI**
 - choco install awscli --force
-- aws configure  
-  Enter the access keys <<(Note: the access keys and secret keys must have full permission)
 
 **Install GIT**
 - choco install git
+
+**Restart Powershell**
+- Close the powershell and reopen it
+
+**Configure GIT**
 - git clone https://github.com/INFX06037/Satz-EKS  
  *This will download all the yaml files from git*
+  
+**Configure AWS Accesskeys**
+- aws configure  
+  Enter the access keys <<(Note: the access keys and secret keys must have full permission)
 
 **Create EKS Cluster**
-- eksctl create cluster -n “digital-cluster" -r "ap-south-1" --version "1.28" --nodegroup-name “digital-nodegrp" -t "t3.micro" -N 2
+- eksctl create cluster -n “digital-cluster" -r "ap-south-1" --version "1.35" --nodegroup-name “digital-nodegrp" -t "t3.micro" -N 2
 
 Note: It takes max 15-30 mins to create a cluster
 
