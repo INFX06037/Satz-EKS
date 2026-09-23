@@ -11,7 +11,7 @@ Open powershell as administrator, run the following cmds
 - choco install eksctl <<(Most Preferred way in organizations)
 - choco install kubernetes-cli
 - eksctl version
-- Kubectl version
+- kubectl version
   
 **Install AWS-CLI**
 - choco install awscli --force
