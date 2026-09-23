@@ -27,6 +27,7 @@ Open powershell as administrator, run the following cmds
  *This will download all the yaml files from git*
   
 **Configure AWS Accesskeys**
+- Create Access keys in IAM
 - aws configure  
   Enter the access keys <<(Note: the access keys and secret keys must have full permission)
 
