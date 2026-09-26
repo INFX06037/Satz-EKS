@@ -33,10 +33,15 @@ Open powershell as administrator, run the following cmds
 
 **Create EKS Cluster**
 - eksctl create cluster -n “digital-cluster" -r "ap-south-1" --version "1.35" --nodegroup-name “digital-nodegrp" -t "t3.micro" -N 2
-- aws eks update-kubeconfig --region ap-south-1 --name digital-cluster
+- Add "Amazon VPC CNI" addon!
 
 Note: It takes max 15-30 mins to create a cluster
 
+**Open command prompt and run the below command**
+- aws eks update-kubeconfig --region ap-south-1 --name digital-cluster
+
+**GIT Files**
+- Open the yaml files folder in command prompt and run the below commands.
 
 ------------------
 POD
